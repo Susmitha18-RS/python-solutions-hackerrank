@@ -1,0 +1,13 @@
+import re
+def transform_logic():
+   try:
+        n = int(input())
+    except EOFError:
+        return
+    for _ in range(n):
+        line = input()
+        line = re.sub(r'(?<= )&&(?= )', 'and', line)        
+        line = re.sub(r'(?<= )\|\|(?= )', 'or', line)
+        print(line)
+if __name__ == "__main__":
+    transform_logic()
