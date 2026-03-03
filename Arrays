@@ -1,0 +1,28 @@
+def reverse_numpy_array(numbers_string):
+    """
+    Converts a space-separated string of numbers into a NumPy array of type float, 
+    and returns the array reversed.
+
+    Args:
+        numbers_string: A single line string containing space separated numbers.
+
+    Returns:
+        A numpy array with elements reversed and of type float.
+    """
+    # Convert the string into a list of strings
+    numbers_list = numbers_string.split()
+    
+    # Create a NumPy array from the list with element type float
+    # NumPy will automatically convert the string representations of numbers to floats
+    numpy_array = numpy.array(numbers_list, float)
+    
+    # Reverse the array using the flipud() function from NumPy
+    reversed_array = numpy.flipud(numpy_array)
+    
+    # Alternatively, you can use slice notation to reverse the array:
+    # reversed_array = numpy_array[::-1]
+    
+    return reversed_array
+def arrays(arr):
+     a = numpy.array(arr, float)
+     return numpy.flipud(a)
