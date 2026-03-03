@@ -1,0 +1,13 @@
+import re
+import sys
+line1 = sys.stdin.readline().split()
+n, m = int(line1[0]), int(line1[1])
+matrix = []
+for _ in range(n):
+    matrix.append(sys.stdin.readline())
+matrix_string = ""
+for j in range(m):
+    for i in range(n):
+        matrix_string += matrix[i][j]
+print(re.sub(r'(?<=[A-Za-z0-9])[^A-Za-z0-9]+(?=[A-Za-z0-9])', ' ', matrix_string))
+
