@@ -1,0 +1,6 @@
+import numpy
+n, m = map(int, input().split())
+array = numpy.array([input().split() for _ in range(n)], int)
+sum_result = numpy.sum(array, axis=0)
+product_result = numpy.prod(sum_result)
+print(product_result)
