@@ -1,0 +1,11 @@
+def swap_case(s):
+    """
+    Swaps the case of all letters in the input string s.
+
+    Args:
+        s: The input string.
+
+    Returns:
+        The modified string with cases swapped.
+    """
+    return s.swapcase()
