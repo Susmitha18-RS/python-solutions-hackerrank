@@ -1,0 +1,19 @@
+def count_distinct_stamps():
+    # Read the total number of stamps from the first line of input.
+    N = int(input())
+    
+    # Create an empty set to store distinct country names.
+    distinct_stamps = set()
+    
+    # Loop N times to read each stamp name.
+    for _ in range(N):
+        country_name = input()
+        # Use the .add() operation to add the country name to the set.
+        # Duplicates are automatically ignored by the set data structure.
+        distinct_stamps.add(country_name)
+        
+    # The size of the set is the number of distinct stamps.
+    print(len(distinct_stamps))
+
+# Call the function to run the script.
+count_distinct_stamps()
