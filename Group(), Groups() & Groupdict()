@@ -1,0 +1,14 @@
+import re
+
+# Read the input string
+s = input().strip()
+
+# Search for the first alphanumeric character that repeats consecutively
+# r"([a-zA-Z0-9])\1" matches an alphanumeric char followed by itself
+match = re.search(r"([a-zA-Z0-9])\1", s)
+
+# Output the first group of the match if found, otherwise -1
+if match:
+    print(match.group(1))
+else:
+    print("-1")
