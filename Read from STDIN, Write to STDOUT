@@ -1,0 +1,18 @@
+#include <stdio.h>
+ 
+int main() {
+    int N;
+    char S[100]; // Assuming maximum string length of 100
+ 
+    // Read the integer
+    scanf("%d", &N);
+ 
+    // Read the string
+    scanf("%s", S);
+ 
+    // Output the results
+    printf("%d\n", N * 2);
+    printf("%s\n", S);
+ 
+    return 0;
+}
