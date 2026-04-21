@@ -1,0 +1,27 @@
+import sys
+from collections import Counter
+
+def solve():
+    
+    line = sys.stdin.readline()
+    if not line:
+        return
+    t = int(line.strip())
+    
+    for _ in range(t):
+        s = sys.stdin.readline().strip()
+        if not s:
+            continue
+            
+        
+        freq = Counter(s)
+        
+        max_palindromes = 0
+      
+        for count in freq.values():
+            max_palindromes += count // 2
+            
+        print(max_palindromes)
+
+if __name__ == '__main__':
+    solve()
