@@ -1,0 +1,50 @@
+import sys
+
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data: return
+    ptr = 0
+    t = int(input_data[ptr]); ptr += 1
+    
+   
+    def get_parity(n):
+        return bin(n).count('1') % 2
+
+    for _ in range(t):
+        n = int(input_data[ptr]); ptr += 1
+        arr = [int(x) for x in input_data[ptr:ptr+n]]; ptr += n
+        
+       
+        curr_ands = {}
+        total_subarrays = 0
+        prefix_xor_parity = 0
+        
+        for x in arr:
+            new_ands = {}
+            p_x = get_parity(x)
+            
+           
+            new_ands[x] = {prefix_xor_parity: 1}
+            
+            
+            for val, parities in curr_ands.items():
+                new_val = val & x
+                if new_val not in new_ands:
+                    new_ands[new_val] = {}
+                for start_p, count in parities.items():
+                    new_ands[new_val][start_p] = new_ands[new_val].get(start_p, 0) + count
+            
+            
+            prefix_xor_parity ^= p_x
+            
+            
+            for val, parities in new_ands.items():
+                if get_parity(val) == 1:
+                    total_subarrays += parities.get(prefix_xor_parity, 0)
+            
+            curr_ands = new_ands
+            
+        print(total_subarrays)
+
+if __name__ == "__main__":
+    solve()
