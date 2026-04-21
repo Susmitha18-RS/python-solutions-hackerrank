@@ -1,0 +1,74 @@
+import sys
+
+def solve():
+    s_n = sys.stdin.readline().strip()
+    if not s_n:
+        return
+    
+    n = int(s_n)
+    
+   
+    if all(int(d) % 2 != 0 for d in s_n):
+        print(n)
+        return
+
+    
+    def get_candidates(num_str):
+        candidates = []
+        
+       
+        for i in range(len(num_str)):
+            digit = int(num_str[i])
+            if digit % 2 == 0:
+               
+                prefix = num_str[:i]
+               
+                if digit > 0:
+                    candidates.append(int(prefix + str(digit-1) + '9' * (len(num_str) - 1 - i)))
+                else:
+                   
+                    if i == 0:
+                        candidates.append(int('9' * (len(num_str)-1)))
+                    else:
+                        
+          
+                        candidates.append(int('9' * (len(num_str)-1)))
+
+                
+                candidates.append(int(prefix + str(digit+1) + '1' * (len(num_str) - 1 - i)))
+                break
+        
+       
+        if len(num_str) > 1:
+            candidates.append(int('9' * (len(num_str) - 1)))
+            
+       
+        candidates.append(int('1' * (len(num_str) + 1)))
+            
+        return candidates
+
+    candidates = get_candidates(s_n)
+    
+   
+        if val <= 0: return False
+        return all(int(d) % 2 != 0 for d in str(val))
+
+    lucky_candidates = [c for c in candidates if is_lucky(c)]
+    
+    
+    min_diff = float('inf')
+    best_val = float('inf')
+    
+    for c in lucky_candidates:
+        diff = abs(n - c)
+        if diff < min_diff:
+            min_diff = diff
+            best_val = c
+        elif diff == min_diff:
+            best_val = min(best_val, c)
+            
+    print(best_val)
+
+if __name__ == "__main__":
+    solve()
+
