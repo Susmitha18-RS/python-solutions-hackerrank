@@ -1,0 +1,42 @@
+def Decryptions(N, K, arr):
+    costs = []
+    odd_count = 0
+    even_count = 0
+    
+   
+    for i in range(N - 1):
+        if arr[i] % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+            
+       
+        if odd_count == even_count:
+            
+            cost = abs(arr[i] - arr[i+1])
+            costs.append(cost)
+            
+    
+    costs.sort()
+    
+    total_cuts = 0
+    current_spent = 0
+    
+    for c in costs:
+        if current_spent + c <= K:
+            current_spent += c
+            total_cuts += 1
+        else:
+            break
+            
+    return total_cuts
+
+
+if __name__ == "__main__":
+    import sys
+    input_data = sys.stdin.read().split()
+    if input_data:
+        N = int(input_data[0])
+        K = int(input_data[1])
+        arr = list(map(int, input_data[2:]))
+        print(Decryptions(N, K, arr))
