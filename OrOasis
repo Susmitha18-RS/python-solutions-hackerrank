@@ -1,0 +1,89 @@
+import sys
+
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data: return
+    ptr = 0
+    t = int(input_data[ptr]); ptr += 1
+    
+    for _ in range(t):
+        n = int(input_data[ptr]); ptr += 1
+        a = [int(x) for x in input_data[ptr:ptr+n]]; ptr += n
+        
+        total_or = 0
+        for x in a: total_or |= x
+        
+        
+        pref = [0] * (n + 1)
+        suff = [0] * (n + 1)
+        for i in range(n): pref[i+1] = pref[i] | a[i]
+        for i in range(n-1, -1, -1): suff[i] = suff[i+1] | a[i]
+        
+        min_len = float('inf')
+        count = 0
+        
+
+        bit_counts = [0] * 31
+        l = 0
+        current_or = 0
+        
+        for r in range(n):
+            
+            current_or |= a[r]
+            for bit in range(31):
+                if (a[r] >> bit) & 1:
+                    bit_counts[bit] += 1
+            
+            while l <= r:
+                
+                temp_or = 0
+                can_shrink = True
+                for bit in range(31):
+                    if (a[l] >> bit) & 1 and bit_counts[bit] == 1:
+                       
+                        can_shrink = False
+                        break
+                
+                if not can_shrink: break
+                
+                
+                for bit in range(31):
+                    if (a[l] >> bit) & 1: bit_counts[bit] -= 1
+                l += 1
+            
+           
+            if current_or == total_or:
+                
+                curr_l = l
+               
+                temp_bits = list(bit_counts)
+                
+                while curr_l <= r:
+                    if (pref[curr_l] | suff[r+1]) == total_or:
+                        length = r - curr_l + 1
+                        if length < min_len:
+                            min_len = length
+                            count = 1
+                        elif length == min_len:
+                            count += 1
+                    else:
+                       
+                        break
+                    
+                   
+                    for bit in range(31):
+                        if (a[curr_l] >> bit) & 1: temp_bits[bit] -= 1
+                    
+                    new_or = 0
+                    for bit in range(31):
+                        if temp_bits[bit] > 0: new_or |= (1 << bit)
+                    if new_or != total_or: break
+                    curr_l += 1
+
+        if min_len == float('inf'):
+            print("-1")
+        else:
+            print(f"{min_len} {count}")
+
+if __name__ == "__main__":
+    solve()
