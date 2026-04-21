@@ -1,0 +1,62 @@
+import sys
+
+def solve():
+    MOD = 10**9 + 7
+    
+    
+    try:
+        line1 = sys.stdin.readline()
+        if not line1: return
+        n = int(line1.strip())
+        
+        a = list(map(int, sys.stdin.readline().split()))
+    except ValueError:
+        return
+
+   
+    for i in range(1, n):
+        if a[i] > a[i-1]:
+            print(0)
+            return
+
+    # 2. Track which numbers from 1...N are used in A
+    used_in_a = [False] * (n + 1)
+    for x in a:
+        used_in_a[x] = True
+    
+   
+    available_pool = [i for i in range(1, n + 1) if not used_in_a[i]]
+    available_pool.sort()
+    
+    ans = 1
+    pool_ptr = 0
+    valid_choices_count = 0
+    
+   
+    for i in range(1, n):
+     
+        while pool_ptr < len(available_pool) and available_pool[pool_ptr] > a[i]:
+            valid_choices_count += 1
+            pool_ptr += 1
+            
+        if a[i] == a[i-1]:
+           
+            ans = (ans * valid_choices_count) % MOD
+           
+            valid_choices_count -= 1
+            
+            if ans == 0:
+                print(0)
+                return
+
+    print(ans % MOD)
+
+def main():
+    line = sys.stdin.readline()
+    if line:
+        t = int(line.strip())
+        for _ in range(t):
+            solve()
+
+if __name__ == "__main__":
+    main()
