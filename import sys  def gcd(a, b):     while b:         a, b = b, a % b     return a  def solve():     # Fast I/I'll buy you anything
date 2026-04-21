@@ -1,0 +1,51 @@
+import sys
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def solve():
+   
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    n = int(input_data[0])
+    a = list(map(int, input_data[1:]))
+    
+    if n < 2:
+        print(0)
+        return
+
+   
+    max_gcd = [0] * n
+    visited = [False] * n
+    total_cost = 0
+    
+    
+    curr_node = 0
+    
+    for _ in range(n - 1):
+        visited[curr_node] = True
+        next_node = -1
+        max_val = -1
+        
+        for i in range(n):
+            if not visited[i]:
+               
+                current_edge_weight = gcd(a[curr_node], a[i])
+                if current_edge_weight > max_gcd[i]:
+                    max_gcd[i] = current_edge_weight
+               
+                if max_gcd[i] > max_val:
+                    max_val = max_gcd[i]
+                    next_node = i
+        
+        total_cost += max_val
+        curr_node = next_node
+        
+    print(total_cost)
+
+if __name__ == "__main__":
+    solve()
