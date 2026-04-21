@@ -1,0 +1,34 @@
+import sys
+
+def solve():
+    
+    try:
+        line1 = sys.stdin.readline()
+        if not line1:
+            return
+        t = int(line1.strip())
+    except ValueError:
+        return
+
+    for _ in range(t):
+        
+        try:
+            n, k = map(int, sys.stdin.readline().split())
+            s = sys.stdin.readline().strip()
+        except ValueError:
+            break
+
+
+        first_char = s[0]
+        first_char_count = s.count(first_char)
+        
+        
+        distinct_chars_count = len(set(s))
+        
+        if first_char_count >= k and distinct_chars_count >= k:
+            print("YES")
+        else:
+            print("NO")
+
+if __name__ == "__main__":
+    solve()
