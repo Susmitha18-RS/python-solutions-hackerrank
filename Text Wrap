@@ -1,0 +1,53 @@
+import sys
+
+def can_fit(words, n, m, width):
+    lines_count = 1
+    current_line_width = 0
+    
+    for i in range(n):
+        word_len = words[i]
+        
+        
+        if current_line_width == 0:
+            current_line_width = word_len
+        else:
+            
+            if current_line_width + 1 + word_len <= width:
+                current_line_width += 1 + word_len
+            else:
+                
+                lines_count += 1
+                current_line_width = word_len
+                
+        
+        if lines_count > m:
+            return False
+            
+    return lines_count <= m
+
+def solve():
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    n = int(input_data[0])
+    m = int(input_data[1])
+    words = [int(x) for x in input_data[2:]]
+    
+   
+    low = max(words)
+    high = sum(words) + (n - 1)
+    ans = high
+    
+    while low <= high:
+        mid = (low + high) // 2
+        if can_fit(words, n, m, mid):
+            ans = mid
+            high = mid - 1
+        else:
+            low = mid + 1
+            
+    print(ans)
+
+if __name__ == "__main__":
+    solve()
