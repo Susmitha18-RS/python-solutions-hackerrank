@@ -1,0 +1,42 @@
+import sys
+
+def solve(S, K):
+    n = len(S)
+    if K <= 1:
+        return 0
+    
+    ans = 0
+    
+    
+    is_replaced = [False] * n
+    
+    for i in range(n):
+       
+        if i >= K:
+            out_idx = i - K
+            if not is_replaced[out_idx]:
+                char_out = S[out_idx]
+                active_chars[char_out] -= 1
+                if active_chars[char_out] == 0:
+                    del active_chars[char_out]
+        
+       
+        current_char = S[i]
+        if current_char in active_chars and active_chars[current_char] > 0:
+          
+            ans += 1
+            is_replaced[i] = True
+        else:
+           
+            is_replaced[i] = False
+            active_chars[current_char] = active_chars.get(current_char, 0) + 1
+            
+    return ans
+
+
+if __name__ == "__main__":
+    S = sys.stdin.readline().strip()
+    line2 = sys.stdin.readline().strip()
+    if line2:
+        K = int(line2)
+        print(solve(S, K))
