@@ -1,0 +1,61 @@
+import heapq
+import sys
+
+def solve():
+    
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    ptr = 0
+    N = int(input_data[ptr]); ptr += 1
+    M = int(input_data[ptr]); ptr += 1
+    K = int(input_data[ptr]); ptr += 1
+    S = int(input_data[ptr]); ptr += 1
+    E = int(input_data[ptr]); ptr += 1
+    
+    adj = [[] for _ in range(N + 1)]
+    
+    
+    for _ in range(M):
+        u = int(input_data[ptr]); ptr += 1
+        v = int(input_data[ptr]); ptr += 1
+        adj[u].append((v, 2))
+        adj[v].append((u, 2))
+        
+    
+    for _ in range(K):
+        u = int(input_data[ptr]); ptr += 1
+        v = int(input_data[ptr]); ptr += 1
+        adj[u].append((v, 1))
+        adj[v].append((u, 1))
+        
+    
+    distances = [float('inf')] * (N + 1)
+    distances[S] = 0
+    pq = [(0, S)] # (cost, current_node)
+    
+    while pq:
+        current_dist, u = heapq.heappop(pq)
+        
+       
+        if u == E:
+            print(current_dist)
+            return
+            
+        if current_dist > distances[u]:
+            continue
+            
+        for v, weight in adj[u]:
+            if distances[u] + weight < distances[v]:
+                distances[v] = distances[u] + weight
+                heapq.heappush(pq, (distances[v], v))
+                
+    
+    if distances[E] == float('inf'):
+        print("-1")
+    else:
+        print(distances[E])
+
+if __name__ == "__main__":
+    solve()
